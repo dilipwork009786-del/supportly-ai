@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+
+  <title>Supportly AI — Smarter Customer Support for Small Businesses</title>
+  <meta name="description" content="Supportly AI helps small businesses explore faster, smarter customer support with an AI-powered support assistant.">
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2e;
+      --panel-light: #19243b;
+      --text: #f5f7ff;
+      --muted: #a8b3ca;
+      --primary: #8b7cff;
+      --accent: #52e0bd;
+      --border: rgba(255,255,255,.11);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11,16,32,.92);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: transform .2s, opacity .2s;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button-primary {
+      color: #0b1020;
+      background: var(--accent);
+    }
+
+    .button-secondary {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: transparent;
+    }
+
+    .hero { padding: 88px 0 76px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 58px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--accent);
+      background: rgba(82,224,189,.09);
+      border: 1px solid rgba(82,224,189,.25);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .82rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 5.7vw, 4.8rem);
+      line-height: 1.05;
+      letter-spacing: -3px;
+      margin: 0 0 22px;
+    }
+
+    h1 span {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      max-width: 570px;
+      font-size: 1.08rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .fine-print {
+      margin-top: 18px;
+      color: #8592ad;
+      font-size: .83rem;
+    }
+
+    .chat-card {
+      background: linear-gradient(145deg, #17223a, #101729);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 90px rgba(0,0,0,.3);
+    }
+
+    .chat-top {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bot-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      color: #0b1020;
+      font-size: 1.3rem;
+      background: var(--accent);
+    }
+
+    .chat-top strong { display: block; }
+    .chat-top small { color: var(--muted); }
+
+    .status {
+      margin-left: auto;
+      color: var(--accent);
+      font-size: .78rem;
+    }
+
+    .chat-body {
+      padding: 22px;
+      min-height: 290px;
+    }
+
+    .message {
+      padding: 12px 14px;
+      border-radius: 14px;
+      max-width: 90%;
+      margin-bottom: 14px;
+      font-size: .91rem;
+      white-space: pre-wrap;
+    }
+
+    .message.bot {
+      background: var(--panel-light);
+      border: 1px solid var(--border);
+    }
+
+    .message.user {
+      background: #6556d9;
+      margin-left: auto;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .suggestion {
+      color: #d9d6ff;
+      background: transparent;
+      border: 1px solid rgba(139,124,255,.45);
+      border-radius: 999px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-size: .8rem;
+    }
+
+    .suggestion:hover { background: rgba(139,124,255,.14); }
+
+    .chat-form {
+      padding: 15px;
+      display: flex;
+      gap: 9px;
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-form input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid var(--border);
+      background: #0b1020;
+      border-radius: 10px;
+      color: var(--text);
+      padding: 12px;
+      outline: none;
+    }
+
+    .chat-form input:focus { border-color: var(--primary); }
+
+    section { padding: 72px 0; }
+
+    .section-heading {
+      max-width: 680px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 25px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .feature-icon {
+      font-size: 1.7rem;
+      margin-bottom: 15px;
+    }
+
+    .feature h3 { margin: 0 0 8px; }
+    .feature p { color: var(--muted); margin: 0; font-size: .94rem; }
+
+    .how {
+      background: rgba(255,255,255,.025);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .step-number {
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 800;
+    }
+
+    .step h3 { margin: 8px 0; }
+    .step p { color: var(--muted); margin: 0; }
+
+    .honest-note {
+      margin-top: 30px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px 18px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 55px 25px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        radial-gradient(ellipse at top, rgba(139,124,255,.18), transparent 65%),
+        var(--panel);
+    }
+
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      max-width: 570px;
+      margin: 0 auto 25px;
+    }
+
+    footer {
+      padding: 30px 0;
+      margin-top: 65px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links { display: flex; gap: 18px; }
+
+    @media (max-width: 800px) {
+      .hero { padding-top: 58px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
+      .features, .steps { grid-template-columns: 1fr; }
+      .nav-links a:not(.button) { display: none; }
+      h1 { letter-spacing: -2px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="logo" href="#" aria-label="Supportly AI home">
+        Supportly<span>.</span>ai
+      </a>
+
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a class="button button-primary" href="#contact">Get in touch ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">✦ Exploring AI support for small businesses</div>
+
+          <h1>
+            Customer support,<br>
+            made <span>smarter.</span>
+          </h1>
+
+          <p class="hero-copy">
+            Small businesses deserve great customer support without the
+            complexity of a large support team. Supportly AI is exploring
+            how AI can help businesses answer common questions, respond
+            faster, and give customers a better experience.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#demo">
+              Try the demo ↓
+            </a>
+            <a class="button button-secondary" href="#how-it-works">
+              Explore the idea
+            </a>
+          </div>
+
+          <p class="fine-print">
+            Early-stage concept · Built to explore practical AI support
+          </p>
+        </div>
+
+        <div class="chat-card" id="demo">
+          <div class="chat-top">
+            <div class="bot-icon" aria-hidden="true">✳</div>
+            <div>
+              <strong>Supportly Assistant</strong>
+              <small>Interactive sample conversation</small>
+            </div>
+            <div class="status">● Demo</div>
+          </div>
+
+          <div class="chat-body" id="chat-messages" aria-live="polite">
+            <div class="message bot">
+              Hi there! 👋 I'm the Supportly demo assistant. Ask me about
+              shipping, returns, or business hours to see an example of
+              AI-assisted customer support.
+            </div>
+
+            <div class="suggestions">
+              <button class="suggestion" data-question="Where is my order?">
+                📦 Order status
+              </button>
+              <button class="suggestion" data-question="What is your return policy?">
+                ↩️ Returns
+              </button>
+              <button class="suggestion" data-question="What are your business hours?">
+                🕒 Business hours
+              </button>
+            </div>
+          </div>
+
+          <form class="chat-form" id="chat-form">
+            <input
+              id="chat-input"
+              type="text"
+              placeholder="Ask a sample question..."
+              aria-label="Type a sample customer support question"
+              maxlength="300"
+              required
+            >
+            <button class="button button-primary" type="submit" aria-label="Send message">
+              Send
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Better support, less complexity.</h2>
+          <p>
+            We're exploring practical ways to make customer support more
+            accessible for growing businesses.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">💬</div>
+            <h3>Instant answers</h3>
+            <p>
+              Help customers find answers to common questions without
+              waiting for a team member to become available.
+            </p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🧠</div>
+            <h3>AI-assisted responses</h3>
+            <p>
+              Explore how language models can help generate clear,
+              relevant responses using business-approved information.
+            </p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🏪</div>
+            <h3>Designed for small teams</h3>
+            <p>
+              Keep the idea simple and approachable for local shops,
+              independent sellers, and growing online businesses.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how-it-works">
+      <div class="container">
+        <div class="section-heading">
+          <h2>How Supportly AI could work</h2>
+          <p>
+            A simple starting point for an AI-powered customer support product.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">STEP 01</div>
+            <h3>Understand the business</h3>
+            <p>
+              Gather approved information such as FAQs, shipping policies,
+              opening hours, and product details.
+            </p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">STEP 02</div>
+            <h3>Generate helpful replies</h3>
+            <p>
+              Use an AI model to help draft answers grounded in the
+              business's own information.
+            </p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">STEP 03</div>
+            <h3>Keep people in control</h3>
+            <p>
+              Escalate unclear, sensitive, or account-specific questions
+              to a human instead of guessing.
+            </p>
+          </article>
+        </div>
+
+        <div class="honest-note">
+          <strong>Prototype status:</strong> This website currently demonstrates
+          the product concept and a scripted sample chat. It does not connect
+          to a live AI model, business knowledge base, order system, or customer
+          database yet.
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta">
+          <h2>Let's make customer support simpler.</h2>
+          <p>
+            Interested in the idea or want to share a small-business
+            customer support challenge? I'd love to hear from you.
+          </p>
+
+          <a
+            class="button button-primary"
+            href="mailto:dilipwork009786@zohomail.in?subject=Supportly%20AI%20-%20Product%20Interest"
+          >
+            Contact the founder ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <a class="logo" href="#">Supportly<span>.</span>ai</a>
+        <div>Exploring smarter support for small businesses.</div>
+        <div>© <span id="year"></span> Supportly AI</div>
+      </div>
+
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="mailto:dilipwork009786@zohomail.in">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const chatMessages = document.getElementById("chat-messages");
+    const chatForm = document.getElementById("chat-form");
+    const chatInput = document.getElementById("chat-input");
+
+    const sampleAnswers = [
+      {
+        keywords: ["order", "shipping", "delivery", "tracking", "package"],
+        answer:
+          "I'd be happy to help with your order! 📦 In a real Supportly integration, I could look up your order status using an authorized order system. This demo doesn't have access to real orders, so please contact the business for an actual tracking update."
+      },
+      {
+        keywords: ["return", "refund", "exchange", "replace"],
+        answer:
+          "Returns depend on the store's specific policy. ↩️ A connected Supportly assistant could use the business's approved return policy to explain eligibility, time limits, and next steps. This demo doesn't have a real store policy connected."
+      },
+      {
+        keywords: ["hour", "open", "close", "timing", "time", "weekend"],
+        answer:
+          "Business hours vary by store. 🕒 In a live setup, Supportly could answer using the business's verified opening hours. This demo doesn't have a specific business's hours configured yet."
+      },
+      {
+        keywords: ["price", "cost", "plan", "pricing", "subscription"],
+        answer:
+          "We're still exploring the product and its pricing. A future version could offer straightforward plans designed around the needs of small businesses."
+      },
+      {
+        keywords: ["human", "person", "agent", "contact", "help"],
+        answer:
+          "Human support is important! 🤝 A production version should offer a clear way to contact the business whenever an AI assistant cannot confidently answer a question."
+      }
+    ];
+
+    function addMessage(text, sender) {
+      const message = document.createElement("div");
+      message.className = "message " + sender;
+      message.textContent = text;
+      chatMessages.appendChild(message);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function getAnswer(question) {
+      const normalized = question.toLowerCase();
+
+      for (const item of sampleAnswers) {
+        if (item.keywords.some(keyword => normalized.includes(keyword))) {
+          return item.answer;
+        }
+      }
+
+      return "Thanks for your question! This prototype uses a small set of scripted examples rather than a live AI model. In a future version, Supportly could use a language model and approved business information to draft a more relevant answer. For now, try asking about an order, returns, business hours, or pricing.";
+    }
+
+    function sendQuestion(question) {
+      const cleaned = question.trim();
+      if (!cleaned) return;
+
+      const suggestions = chatMessages.querySelector(".suggestions");
+      if (suggestions) suggestions.remove();
+
+      addMessage(cleaned, "user");
+
+      window.setTimeout(() => {
+        addMessage(getAnswer(cleaned), "bot");
+      }, 350);
+    }
+
+    chatForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      sendQuestion(chatInput.value);
+      chatInput.value = "";
+      chatInput.focus();
+    });
+
+    document.querySelectorAll(".suggestion").forEach(button => {
+      button.addEventListener("click", () => {
+        sendQuestion(button.dataset.question);
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
